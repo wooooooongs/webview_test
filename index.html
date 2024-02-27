@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>웅스키 웹뷰</title>
+  </head>
+  <body>
+    <div>
+      <h2 class="">빈칸을 채우시고 알림 띄우기를 클릭하시면 알림이 띄워집니다.</h2>
+      <p></p>
+      <h2 class="">네이티브에서 호출할 JS 함수 이름 showAlert(메세지)</h2>
+      <form method="post">
+        <input type="text" name="name" id="name" />
+        <input class="btn-indigo" type="submit" name="send" id="send" value="알림 띄우기" />
+      </form>
+
+      <p></p>
+
+      <h2 class="">JS에서 안드로이드 네이티브 메소드 호출 - showAndroidToast</h2>
+      <input type="text" placeholder="전달할 내용을 입력하세요" name="androidMessage" id="androidMessage" />
+      <button onclick="showAndroidToast();">안드로이드 네이티브로 전달</button>
+
+      <h2 class="">JS에서 iOS 네이티브로 전달</h2>
+
+      <input type="text" placeholder="전달할 내용을 입력하세요" name="messageToSend" id="messageToSend" />
+      <button onclick="jsToNativeEventCall();">네이티브로 전달</button>
+
+      <h2 class="">네이티브에서 입력한 내용</h2>
+      <input name="native_input" id="native_input" value="" />
+
+      <p></p>
+      <a href="tel:010-1234-1234">고객센터에 전화걸기</a>
+      <p></p>
+      <a href="mailto:test@email.com">고객센터에 이메일 보내기</a>
+      <p></p>
+      <a href="https://www.youtube.com">유튜브로 이동하기</a>
+      <p></p>
+      <a href="https://github.com/TuenTuenna">쩡대리 깃헙</a>
+      <p></p>
+      <a href="downloads/Becoming-iOS-Developer-Roadmap-2021.pdf" download="ios-roadmap"> PDF 다운받기 </a>
+      <p></p>
+      <a href="downloads/todos.xlsx" download="todos"> 엑셀 다운받기 </a>
+      <p></p>
+      <a href="downloads/resources.zip" download="resources"> 작은 압축파일 다운받기 </a>
+      <p></p>
+      <a href="downloads/dummy.zip" download="dummgy"> 큰 압축파일 다운받기 </a>
+      <p></p>
+      <p></p>
+      <p></p>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
