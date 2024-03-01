@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var webViewModel: WebViewModel
+    
     @State var textString = ""
     @State var showAlert = false
     
@@ -46,15 +48,21 @@ struct ContentView: View {
         Text("이동")
             .foregroundStyle(.black)
             .contextMenu(ContextMenu(menuItems: {
-                Button(action: {}, label: {
+                Button(action: {
+                    self.webViewModel.changedURLSubject.send(.main)
+                }, label: {
                     Text("Main WebView")
                     Image("appicon")
                 })
-                Button(action: {}, label: {
+                Button(action: {
+                    self.webViewModel.changedURLSubject.send(.naver)
+                }, label: {
                     Text("Naver")
                     Image("naver")
                 })
-                Button(action: {}, label: {
+                Button(action: {
+                    self.webViewModel.changedURLSubject.send(.google)
+                }, label: {
                     Text("Google")
                     Image("google")
                 })
