@@ -14,6 +14,8 @@ struct ContentView: View {
     @State var textString = ""
     @State var showAlert = false
     
+    @State var webTitle: String = ""
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -21,7 +23,7 @@ struct ContentView: View {
                     MyWebView(urlToLoad: "https://www.google.com")
                     webViewTabBar
                 }
-                .navigationBarTitle(Text("웹뷰"), displayMode: .inline)
+                .navigationBarTitle(Text(webTitle), displayMode: .inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         siteMenu
@@ -39,6 +41,9 @@ struct ContentView: View {
                 if self.showAlert {
                     createTextAlert()
                 }
+            }
+            .onReceive(webViewModel.titleSubject) { newWebTitle in
+                self.webTitle = newWebTitle
             }
         }
     }

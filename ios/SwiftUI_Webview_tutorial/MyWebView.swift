@@ -106,6 +106,14 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
     
     // URL 변경
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.evaluateJavaScript("document.title") { (res, err) in
+            if let err = err { print("타이틀 에러 \(err)")}
+            
+            if let title = res as? String {
+                self.myWebView.webViewModel.titleSubject.send(title)
+            }
+        }
+        
         myWebView
             .webViewModel
             .newURLSubject

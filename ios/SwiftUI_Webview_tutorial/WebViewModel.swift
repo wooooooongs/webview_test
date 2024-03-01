@@ -35,4 +35,6 @@ class WebViewModel: ObservableObject {
     var newURLSubject = PassthroughSubject<WebViewModel.URL_TYPE, Never>()
     // 웹뷰의 Navigation Action Event
     var webNavigationSubject = PassthroughSubject<WEB_NAVIGATION, Never>()
+    // 타이틀 전달
+    var titleSubject = PassthroughSubject<String, Never>()
 }
