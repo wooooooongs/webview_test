@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A048AD22B8E2417006E2FBF /* MyTextAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A048AD12B8E2417006E2FBF /* MyTextAlertView.swift */; };
+		2A3B1A5D2B91A70500393233 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3B1A5C2B91A70500393233 /* WebViewModel.swift */; };
 		F2B4AF9724AD6159008402EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B4AF9624AD6159008402EE /* AppDelegate.swift */; };
 		F2B4AF9924AD6159008402EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B4AF9824AD6159008402EE /* SceneDelegate.swift */; };
 		F2B4AF9B24AD6159008402EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B4AF9A24AD6159008402EE /* ContentView.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		2A048AD12B8E2417006E2FBF /* MyTextAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextAlertView.swift; sourceTree = "<group>"; };
+		2A3B1A5C2B91A70500393233 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		F2B4AF9324AD6159008402EE /* SwiftUI_Webview_tutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUI_Webview_tutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2B4AF9624AD6159008402EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2B4AF9824AD6159008402EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				F2B4AF9E24AD615B008402EE /* Preview Content */,
 				F2B4AFAA24AD61B5008402EE /* MyWebview.swift */,
 				2A048AD12B8E2417006E2FBF /* MyTextAlertView.swift */,
+				2A3B1A5C2B91A70500393233 /* WebViewModel.swift */,
 			);
 			path = SwiftUI_Webview_tutorial;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2B4AF9724AD6159008402EE /* AppDelegate.swift in Sources */,
+				2A3B1A5D2B91A70500393233 /* WebViewModel.swift in Sources */,
 				F2B4AFAB24AD61B5008402EE /* MyWebview.swift in Sources */,
 				F2B4AF9924AD6159008402EE /* SceneDelegate.swift in Sources */,
 				2A048AD22B8E2417006E2FBF /* MyTextAlertView.swift in Sources */,
