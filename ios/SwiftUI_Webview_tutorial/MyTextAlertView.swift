@@ -13,6 +13,8 @@ import SwiftUI
 // SwiftUI의 프로토콜로, UIKit VC를 SwiftUI에서 사용할 수 있게 함
 struct MyTextAlertView: UIViewControllerRepresentable {
     // ContentView의 State에 연결되어 있다.
+    @EnvironmentObject var webViewModel: WebViewModel
+    
     @Binding var textString: String
     @Binding var showAlert: Bool
     
@@ -55,7 +57,9 @@ struct MyTextAlertView: UIViewControllerRepresentable {
                 }
                 
                 uiAlertController.dismiss(animated: true) {
-                    print("보냈다!", self.textString)
+                    print("보냈다!:", self.textString)
+                    
+                    self.webViewModel.nativeToJsBridgeSubject.send(self.textString)
                     clearText()
                     closeAlert()
                 }

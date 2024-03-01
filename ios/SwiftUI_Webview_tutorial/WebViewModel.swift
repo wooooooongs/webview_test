@@ -37,4 +37,6 @@ class WebViewModel: ObservableObject {
     var webNavigationSubject = PassthroughSubject<WEB_NAVIGATION, Never>()
     // 타이틀 전달
     var titleSubject = PassthroughSubject<String, Never>()
+    // iOS -> JS 함수 호출
+    var nativeToJsBridgeSubject = PassthroughSubject<String, Never>()
 }

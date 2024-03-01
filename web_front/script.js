@@ -11,7 +11,7 @@ window.onload = () => {
   });
 };
 
-function jsToNativeEventCall() {
+function jsToNativeBridge() {
   let messageToSend = $('#messageToSend');
   const sendData = { message: messageToSend.value };
 
@@ -24,7 +24,7 @@ function jsToNativeEventCall() {
   }
 }
 
-function nativeToJsEventCall(message) {
+function nativeToJsBridge(message) {
   let nativeInput = $('#nativeInput');
   nativeInput.value = message;
 }

@@ -112,6 +112,7 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         changeTitle(webView)
         loadNewURL(webView)
+        sendToJsBridge(webView)
     }
     
     private func changeTitle(_ webView: WKWebView) {
@@ -132,6 +133,23 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
             .sink { newURL in
                 webView.load(URLRequest(url: newURL))
             }.store(in: &subscriptions) // Combine에서 제거가 되었을 때, 메모리에서도 지우기
+    }
+    
+    private func sendToJsBridge(_ webView: WKWebView) {
+        myWebView
+            .viewModel
+            .nativeToJsBridgeSubject
+            .sink { message in
+                webView.evaluateJavaScript("nativeToJsBridge('\(message)');") { result, err in
+                    if let result = result {
+                        print("nativeToJsBridge 성공! \(result)")
+                    }
+                    
+                    if let err = err {
+                        print("nativeToJsBridge 실패... \(err.localizedDescription)")
+                    }
+                }
+            }.store(in: &subscriptions)
     }
 }
 
