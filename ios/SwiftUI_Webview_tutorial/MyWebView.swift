@@ -13,7 +13,7 @@ import Combine
 // UIKit 의 UIView 를 사용할수 있도록 한다.
 // UIViewControllerRepresentable
 struct MyWebView: UIViewRepresentable {
-    @EnvironmentObject var webViewModel: WebViewModel
+    @EnvironmentObject var viewModel: WebViewModel
     
     var urlToLoad: String
     
@@ -86,7 +86,7 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
     // Main Frame에 웹사이트를 검색을 시작한 시점
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         myWebView
-            .webViewModel
+            .viewModel
             .webNavigationSubject
             .sink { action in
                 switch action {
@@ -110,12 +110,12 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
             if let err = err { print("타이틀 에러 \(err)")}
             
             if let title = res as? String {
-                self.myWebView.webViewModel.titleSubject.send(title)
+                self.myWebView.viewModel.titleSubject.send(title)
             }
         }
         
         myWebView
-            .webViewModel
+            .viewModel
             .newURLSubject
             .compactMap { webViewModel in
                 return webViewModel.url
