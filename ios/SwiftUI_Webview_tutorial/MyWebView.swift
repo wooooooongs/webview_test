@@ -85,6 +85,10 @@ extension MyWebView.Coordinator: WKUIDelegate {
 extension MyWebView.Coordinator: WKNavigationDelegate {
     // Main Frame에 웹사이트를 검색을 시작한 시점
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        handleWebNavigationAction(webView)
+    }
+    
+    private func handleWebNavigationAction(_ webView: WKWebView) {
         myWebView
             .viewModel
             .webNavigationSubject
@@ -106,6 +110,11 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
     
     // URL 변경
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        changeTitle(webView)
+        loadNewURL(webView)
+    }
+    
+    private func changeTitle(_ webView: WKWebView) {
         webView.evaluateJavaScript("document.title") { (res, err) in
             if let err = err { print("타이틀 에러 \(err)")}
             
@@ -113,7 +122,9 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
                 self.myWebView.viewModel.titleSubject.send(title)
             }
         }
-        
+    }
+    
+    private func loadNewURL(_ webView: WKWebView) {
         myWebView
             .viewModel
             .newURLSubject
