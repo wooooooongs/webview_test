@@ -8,10 +8,12 @@
 
 import SwiftUI
 import WebKit
+import Combine
 
 // UIKit 의 UIView 를 사용할수 있도록 한다.
 // UIViewControllerRepresentable
 struct MyWebview: UIViewRepresentable {
+    @EnvironmentObject var webViewModel: WebViewModel
     
     var urlToLoad: String
     
@@ -22,7 +24,13 @@ struct MyWebview: UIViewRepresentable {
             return WKWebView()
         }
         
-        let webview = WKWebView()
+        let webview = WKWebView(frame: .zero, configuration: createWebViewConfig())
+        
+        // WKWebView의 Delegate 연결을 위해 Coordinator 설정
+        webview.uiDelegate = context.coordinator as any WKUIDelegate
+        webview.navigationDelegate = context.coordinator as any WKNavigationDelegate
+        webview.allowsBackForwardNavigationGestures = true
+        
         webview.load(URLRequest(url: url))
         
         return webview
@@ -32,8 +40,74 @@ struct MyWebview: UIViewRepresentable {
     func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<MyWebview>) {
         
     }
+    
+    // MARK: - Coordinator
+    func makeCoordinator() -> MyWebview.Coordinator {
+        return MyWebview.Coordinator(webView: self)
+    }
+    
+    class Coordinator: NSObject {
+        var myWebView: MyWebview // SwiftUI View
+        var subscriptions = Set<AnyCancellable>() // RxSwift DisposeBag과 유사한 역할
+        
+        init(webView: MyWebview) {
+            self.myWebView = webView
+        }
+    }
+    
+    // MARK: - WKWebView 설정
+    func createWebViewConfig() -> WKWebViewConfiguration {
+        let preferences = WKPreferences()
+        preferences.javaScriptCanOpenWindowsAutomatically = true
+        
+        let webPagePreferences = WKWebpagePreferences()
+        webPagePreferences.allowsContentJavaScript = true
+        
+        let userContentController = WKUserContentController()
+        userContentController.add(self.makeCoordinator(), name: "callbackHandler")
+        
+        let webViewConfig = WKWebViewConfiguration()
+        webViewConfig.userContentController = userContentController
+        webViewConfig.preferences = preferences
+        webViewConfig.defaultWebpagePreferences = webPagePreferences
+        
+        return webViewConfig
+    }
 }
 
+// MARK: - WKWebView Delegate Coordinator
+
+extension MyWebview.Coordinator: WKUIDelegate {
+    
+}
+
+// 링크이동 관련
+extension MyWebview.Coordinator: WKNavigationDelegate {
+    
+    // Navigation이 완료
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        myWebView
+            .webViewModel
+            .changedURLSubject
+            .compactMap { webViewModel in
+                return webViewModel.url
+            }
+            .sink { newURL in
+                webView.load(URLRequest(url: newURL))
+            }
+        // Combine에서 제거가 되었을 때, 메모리에서도 지우기
+            .store(in: &subscriptions)
+    }
+}
+
+// 서버에서 JS를 호출해서 설정하는 머시기
+extension MyWebview.Coordinator: WKScriptMessageHandler {
+    
+    // WebView JavaScript에서 호출하는 메서드 들을 아래 함수를 거친다.
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        print("userContentController, \(message)")
+    }
+}
 
 #Preview {
     MyWebview(urlToLoad: "https://www.naver.com")
