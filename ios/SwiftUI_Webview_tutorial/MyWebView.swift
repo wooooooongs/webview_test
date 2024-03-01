@@ -128,9 +128,7 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
         myWebView
             .viewModel
             .newURLSubject
-            .compactMap { webViewModel in
-                return webViewModel.url
-            }
+            .compactMap(\.url)
             .sink { newURL in
                 webView.load(URLRequest(url: newURL))
             }.store(in: &subscriptions) // Combine에서 제거가 되었을 때, 메모리에서도 지우기
