@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var textString = ""
+    @State var showAlert = false
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -24,11 +27,15 @@ struct ContentView: View {
                     
                     ToolbarItem(placement: .topBarTrailing) {
                         Button(action: {
-                            
+                            self.showAlert.toggle()
                         }, label: {
                             Text("iOS -> JS")
                         })
                     }
+                }
+                
+                if self.showAlert {
+                    createTextAlert()
                 }
             }
         }
@@ -98,9 +105,9 @@ struct ContentView: View {
 }
 
 extension ContentView {
-//    func createTextAlert() -> MyTextAlertView {
-//        
-//    }
+    func createTextAlert() -> MyTextAlertView {
+        MyTextAlertView(textString: $textString, showAlert: $showAlert, title: "Send iOS -> JS", message: "")
+    }
 }
 
 #Preview {
