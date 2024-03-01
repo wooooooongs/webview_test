@@ -108,7 +108,7 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         myWebView
             .webViewModel
-            .changedURLSubject
+            .newURLSubject
             .compactMap { webViewModel in
                 return webViewModel.url
             }

@@ -49,19 +49,19 @@ struct ContentView: View {
             .foregroundStyle(.black)
             .contextMenu(ContextMenu(menuItems: {
                 Button(action: {
-                    self.webViewModel.changedURLSubject.send(.main)
+                    self.webViewModel.newURLSubject.send(.main)
                 }, label: {
                     Text("Main WebView")
                     Image("appicon")
                 })
                 Button(action: {
-                    self.webViewModel.changedURLSubject.send(.naver)
+                    self.webViewModel.newURLSubject.send(.naver)
                 }, label: {
                     Text("Naver")
                     Image("naver")
                 })
                 Button(action: {
-                    self.webViewModel.changedURLSubject.send(.google)
+                    self.webViewModel.newURLSubject.send(.google)
                 }, label: {
                     Text("Google")
                     Image("google")
