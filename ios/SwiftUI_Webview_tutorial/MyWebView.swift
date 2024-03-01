@@ -1,5 +1,5 @@
 //
-//  MyWebview.swift
+//  MyWebView.swift
 //  SwiftUI_Webview_tutorial
 //
 //  Created by Jeff Jeong on 2020/07/02.
@@ -83,8 +83,28 @@ extension MyWebView.Coordinator: WKUIDelegate {
 
 // 링크이동 관련
 extension MyWebView.Coordinator: WKNavigationDelegate {
+    // Main Frame에 웹사이트를 검색을 시작한 시점
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        myWebView
+            .webViewModel
+            .webNavigationSubject
+            .sink { action in
+                switch action {
+                case .back:
+                    if webView.canGoBack {
+                        webView.goBack()
+                    }
+                case .forward:
+                    if webView.canGoForward {
+                        webView.goForward()
+                    }
+                case .refresh:
+                    webView.reload()
+                }
+            }.store(in: &subscriptions)
+    }
     
-    // Navigation이 완료
+    // URL 변경
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         myWebView
             .webViewModel
@@ -94,9 +114,7 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
             }
             .sink { newURL in
                 webView.load(URLRequest(url: newURL))
-            }
-        // Combine에서 제거가 되었을 때, 메모리에서도 지우기
-            .store(in: &subscriptions)
+            }.store(in: &subscriptions) // Combine에서 제거가 되었을 때, 메모리에서도 지우기
     }
 }
 

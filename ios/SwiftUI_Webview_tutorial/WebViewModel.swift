@@ -36,4 +36,6 @@ class WebViewModel: ObservableObject {
     
     // 웹뷰의 URL이 변경되었을 때 이벤트 전달해줌.
     var changedURLSubject = PassthroughSubject<WebViewModel.URL_TYPE, Never>()
+    // 웹뷰의 Navigation Action Event
+    var webNavigationSubject = PassthroughSubject<WEB_NAVIGATION, Never>()
 }
