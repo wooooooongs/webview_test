@@ -15,7 +15,7 @@
 		F2B4AF9D24AD615B008402EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2B4AF9C24AD615B008402EE /* Assets.xcassets */; };
 		F2B4AFA024AD615B008402EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2B4AF9F24AD615B008402EE /* Preview Assets.xcassets */; };
 		F2B4AFA324AD615B008402EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2B4AFA124AD615B008402EE /* LaunchScreen.storyboard */; };
-		F2B4AFAB24AD61B5008402EE /* MyWebview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B4AFAA24AD61B5008402EE /* MyWebview.swift */; };
+		F2B4AFAB24AD61B5008402EE /* MyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B4AFAA24AD61B5008402EE /* MyWebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		F2B4AF9F24AD615B008402EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F2B4AFA224AD615B008402EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2B4AFA424AD615B008402EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F2B4AFAA24AD61B5008402EE /* MyWebview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWebview.swift; sourceTree = "<group>"; };
+		F2B4AFAA24AD61B5008402EE /* MyWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 				F2B4AFA124AD615B008402EE /* LaunchScreen.storyboard */,
 				F2B4AFA424AD615B008402EE /* Info.plist */,
 				F2B4AF9E24AD615B008402EE /* Preview Content */,
-				F2B4AFAA24AD61B5008402EE /* MyWebview.swift */,
+				F2B4AFAA24AD61B5008402EE /* MyWebView.swift */,
 				2A048AD12B8E2417006E2FBF /* MyTextAlertView.swift */,
 				2A3B1A5C2B91A70500393233 /* WebViewModel.swift */,
 			);
@@ -157,7 +157,7 @@
 			files = (
 				F2B4AF9724AD6159008402EE /* AppDelegate.swift in Sources */,
 				2A3B1A5D2B91A70500393233 /* WebViewModel.swift in Sources */,
-				F2B4AFAB24AD61B5008402EE /* MyWebview.swift in Sources */,
+				F2B4AFAB24AD61B5008402EE /* MyWebView.swift in Sources */,
 				F2B4AF9924AD6159008402EE /* SceneDelegate.swift in Sources */,
 				2A048AD22B8E2417006E2FBF /* MyTextAlertView.swift in Sources */,
 				F2B4AF9B24AD6159008402EE /* ContentView.swift in Sources */,

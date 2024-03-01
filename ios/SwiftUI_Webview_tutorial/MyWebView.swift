@@ -12,7 +12,7 @@ import Combine
 
 // UIKit 의 UIView 를 사용할수 있도록 한다.
 // UIViewControllerRepresentable
-struct MyWebview: UIViewRepresentable {
+struct MyWebView: UIViewRepresentable {
     @EnvironmentObject var webViewModel: WebViewModel
     
     var urlToLoad: String
@@ -37,20 +37,20 @@ struct MyWebview: UIViewRepresentable {
     }
     
     // UI 업데이트 시 호출
-    func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<MyWebview>) {
+    func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<MyWebView>) {
         
     }
     
     // MARK: - Coordinator
-    func makeCoordinator() -> MyWebview.Coordinator {
-        return MyWebview.Coordinator(webView: self)
+    func makeCoordinator() -> MyWebView.Coordinator {
+        return MyWebView.Coordinator(webView: self)
     }
     
     class Coordinator: NSObject {
-        var myWebView: MyWebview // SwiftUI View
+        var myWebView: MyWebView // SwiftUI View
         var subscriptions = Set<AnyCancellable>() // RxSwift DisposeBag과 유사한 역할
         
-        init(webView: MyWebview) {
+        init(webView: MyWebView) {
             self.myWebView = webView
         }
     }
@@ -77,12 +77,12 @@ struct MyWebview: UIViewRepresentable {
 
 // MARK: - WKWebView Delegate Coordinator
 
-extension MyWebview.Coordinator: WKUIDelegate {
+extension MyWebView.Coordinator: WKUIDelegate {
     
 }
 
 // 링크이동 관련
-extension MyWebview.Coordinator: WKNavigationDelegate {
+extension MyWebView.Coordinator: WKNavigationDelegate {
     
     // Navigation이 완료
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -101,7 +101,7 @@ extension MyWebview.Coordinator: WKNavigationDelegate {
 }
 
 // 서버에서 JS를 호출해서 설정하는 머시기
-extension MyWebview.Coordinator: WKScriptMessageHandler {
+extension MyWebView.Coordinator: WKScriptMessageHandler {
     
     // WebView JavaScript에서 호출하는 메서드 들을 아래 함수를 거친다.
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -110,5 +110,5 @@ extension MyWebview.Coordinator: WKScriptMessageHandler {
 }
 
 #Preview {
-    MyWebview(urlToLoad: "https://www.naver.com")
+    MyWebView(urlToLoad: "https://www.naver.com")
 }

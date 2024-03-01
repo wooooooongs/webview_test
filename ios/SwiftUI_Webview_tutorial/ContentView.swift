@@ -18,7 +18,7 @@ struct ContentView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    MyWebview(urlToLoad: "https://www.google.com")
+                    MyWebView(urlToLoad: "https://www.google.com")
                     webViewTabBar
                 }
                 .navigationBarTitle(Text("웹뷰"), displayMode: .inline)
