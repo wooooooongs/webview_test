@@ -41,4 +41,6 @@ class WebViewModel: ObservableObject {
     var nativeToJsBridgeSubject = PassthroughSubject<String, Never>()
     // JS -> iOS
     var jsToNativeBridgeSubject = PassthroughSubject<JsAlert, Never>()
+    // 로딩 여부
+    var shouldShowLoadingIndicator = PassthroughSubject<Bool, Never>()
 }

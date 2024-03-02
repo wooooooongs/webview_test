@@ -11,12 +11,13 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var webViewModel: WebViewModel
     
-    @State var textString = ""
-    @State var showAlert = false
+    @State var textString: String = ""
+    @State var showAlert: Bool = false
     
     @State var jsAlert: JsAlert?
     
     @State var webTitle: String = ""
+    @State var isLoading: Bool = false
     
     var body: some View {
         NavigationView {
@@ -46,12 +47,19 @@ struct ContentView: View {
                 if self.showAlert {
                     createTextAlert()
                 }
+                
+                if self.isLoading {
+                    LoadingIndicatorView()
+                }
             }
             .onReceive(webViewModel.titleSubject) { newWebTitle in
                 self.webTitle = newWebTitle
             }
             .onReceive(webViewModel.jsToNativeBridgeSubject) { jsAlert in
                 self.jsAlert = jsAlert
+            }
+            .onReceive(webViewModel.shouldShowLoadingIndicator) { isLoading in
+                self.isLoading = isLoading
             }
         }
     }

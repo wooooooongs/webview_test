@@ -91,8 +91,9 @@ extension MyWebView.Coordinator: WKUIDelegate {
 
 // 링크이동 관련
 extension MyWebView.Coordinator: WKNavigationDelegate {
-    // Main Frame에 웹사이트를 검색을 시작한 시점
+    // 0. Main Frame에 웹사이트 Navigation을 시작합니다
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        handleLoadingIndicator(true)
         handleWebNavigationAction(webView)
     }
     
@@ -116,11 +117,32 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
             }.store(in: &subscriptions)
     }
     
-    // URL 변경
+    // 1. 아직 로딩중
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        handleLoadingIndicator(true)
+    }
+    
+    // 2-1. 로딩 완료
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         changeTitle(webView)
         loadNewURL(webView)
         sendToJsBridge(webView)
+        handleLoadingIndicator(false)
+    }
+    
+    // 2-2. 진짜 끝났는뎁쇼
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        handleLoadingIndicator(false)
+    }
+    
+    // 2-3. Navigation 중에 실패함!!
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        handleLoadingIndicator(false)
+    }
+    
+    // 2-4. Navigation이 시작되기 전에 실패함!!
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        handleLoadingIndicator(false)
     }
     
     private func changeTitle(_ webView: WKWebView) {
@@ -158,6 +180,10 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
                     }
                 }
             }.store(in: &subscriptions)
+    }
+    
+    private func handleLoadingIndicator(_ shouldShow: Bool) {
+        self.myWebView.viewModel.shouldShowLoadingIndicator.send(shouldShow)
     }
 }
 
