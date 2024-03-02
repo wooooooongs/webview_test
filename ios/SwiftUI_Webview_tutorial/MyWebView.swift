@@ -25,17 +25,17 @@ struct MyWebView: UIViewRepresentable {
             return WKWebView()
         }
         
-        let webview = WKWebView(frame: .zero, configuration: createWebViewConfig())
+        let webView = WKWebView(frame: .zero, configuration: createWebViewConfig())
         
         // WKWebView의 Delegate 연결을 위해 Coordinator 설정
-        webview.uiDelegate = context.coordinator as any WKUIDelegate
-        webview.navigationDelegate = context.coordinator as any WKNavigationDelegate
-        webview.allowsBackForwardNavigationGestures = true
-        webview.isInspectable = true
+        webView.uiDelegate = context.coordinator as any WKUIDelegate
+        webView.navigationDelegate = context.coordinator as any WKNavigationDelegate
+        webView.allowsBackForwardNavigationGestures = true
+        webView.isInspectable = true
         
-        webview.load(URLRequest(url: url))
+        webView.load(URLRequest(url: url))
         
-        return webview
+        return webView
     }
     
     // UI 업데이트 시 호출
@@ -79,6 +79,7 @@ struct MyWebView: UIViewRepresentable {
 
 // MARK: - WKWebView Delegate Coordinator
 
+// JavaScript에서 WebView를 감지
 extension MyWebView.Coordinator: WKUIDelegate {
     
 }
