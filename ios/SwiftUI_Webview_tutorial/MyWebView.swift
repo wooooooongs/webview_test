@@ -81,7 +81,12 @@ struct MyWebView: UIViewRepresentable {
 
 // JavaScript에서 WebView를 감지
 extension MyWebView.Coordinator: WKUIDelegate {
-    
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        
+        self.myWebView.viewModel.jsToNativeBridgeSubject.send(JsAlert(message: message, .jsAlert))
+        
+        completionHandler()
+    }
 }
 
 // 링크이동 관련
