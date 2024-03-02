@@ -13,11 +13,13 @@ window.onload = () => {
 
 function jsToNativeBridge() {
   let messageToSend = $('#messageToSend');
-  const sendData = { message: messageToSend.value };
+  const sendData = {
+    message: messageToSend.value,
+  };
 
   try {
     // callbackHandler = bridge
-    window.webkit.messageHandler.callbackHandler.postMessage(sendData);
+    window.webkit.messageHandlers.nativeHandler.postMessage(sendData);
     messageToSend.value = '';
   } catch (err) {
     alert(err);
