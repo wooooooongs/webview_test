@@ -16,6 +16,7 @@ struct MyWebView: UIViewRepresentable {
     @EnvironmentObject var viewModel: WebViewModel
     
     var urlToLoad: String
+    static let HANDLER_NAME = "nativeHandler"
     
     func makeUIView(context: Context) -> WKWebView {
         
@@ -30,6 +31,7 @@ struct MyWebView: UIViewRepresentable {
         webview.uiDelegate = context.coordinator as any WKUIDelegate
         webview.navigationDelegate = context.coordinator as any WKNavigationDelegate
         webview.allowsBackForwardNavigationGestures = true
+        webview.isInspectable = true
         
         webview.load(URLRequest(url: url))
         
@@ -64,7 +66,7 @@ struct MyWebView: UIViewRepresentable {
         webPagePreferences.allowsContentJavaScript = true
         
         let userContentController = WKUserContentController()
-        userContentController.add(self.makeCoordinator(), name: "callbackHandler")
+        userContentController.add(self.makeCoordinator(), name: MyWebView.HANDLER_NAME)
         
         let webViewConfig = WKWebViewConfiguration()
         webViewConfig.userContentController = userContentController
@@ -153,15 +155,15 @@ extension MyWebView.Coordinator: WKNavigationDelegate {
     }
 }
 
-// 서버에서 JS를 호출해서 설정하는 머시기
 extension MyWebView.Coordinator: WKScriptMessageHandler {
     
-    // WebView JavaScript에서 호출하는 메서드 들을 아래 함수를 거친다.
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print("userContentController, \(message)")
+        
+        if message.name == MyWebView.HANDLER_NAME {
+            if let receivedData : [String: String] = message.body as? Dictionary {
+                
+                myWebView.viewModel.jsToNativeBridgeSubject.send(JsAlert(message: receivedData["message"], .jsBridge))
+            }
+        }
     }
-}
-
-#Preview {
-    MyWebView(urlToLoad: "https://www.naver.com")
 }

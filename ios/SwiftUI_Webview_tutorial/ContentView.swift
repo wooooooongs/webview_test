@@ -14,13 +14,15 @@ struct ContentView: View {
     @State var textString = ""
     @State var showAlert = false
     
+    @State var jsAlert: JsAlert?
+    
     @State var webTitle: String = ""
     
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
-                    MyWebView(urlToLoad: "https://www.google.com")
+                    MyWebView(urlToLoad: "https://wooooooongs.github.io/webview_test/")
                     webViewTabBar
                 }
                 .navigationBarTitle(Text(webTitle), displayMode: .inline)
@@ -37,6 +39,9 @@ struct ContentView: View {
                         })
                     }
                 }
+                .alert(item: $jsAlert) { jsAlert in
+                    createAlert(jsAlert)
+                }
                 
                 if self.showAlert {
                     createTextAlert()
@@ -45,10 +50,13 @@ struct ContentView: View {
             .onReceive(webViewModel.titleSubject) { newWebTitle in
                 self.webTitle = newWebTitle
             }
+            .onReceive(webViewModel.jsToNativeBridgeSubject) { jsAlert in
+                self.jsAlert = jsAlert
+            }
         }
     }
     
-    // 사이트 메뉴
+    // MARK: - SiteMenu
     private var siteMenu: some View {
         Text("이동")
             .foregroundStyle(.black)
@@ -74,7 +82,7 @@ struct ContentView: View {
             }))
     }
     
-    // 웹뷰 탭바
+    // MARK: - TabBar
     private var webViewTabBar: some View {
         VStack {
             Divider()
@@ -120,6 +128,15 @@ struct ContentView: View {
 extension ContentView {
     func createTextAlert() -> MyTextAlertView {
         MyTextAlertView(textString: $textString, showAlert: $showAlert, title: "Send iOS -> JS", message: "")
+    }
+    
+    func createAlert(_ alert: JsAlert) -> Alert {
+        Alert(
+            title: Text(alert.type.description),
+            message: Text(alert.message),
+            dismissButton: .default(Text("확인"), action: {
+            print("Alert 창 닫기")
+        }))
     }
 }
 
